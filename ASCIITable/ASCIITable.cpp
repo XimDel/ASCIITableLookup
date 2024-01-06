@@ -1,25 +1,31 @@
-#include <iostream>  
-#include <stdlib.h> 
+#include <iostream>
+#include <stdlib.h>
 #include <fstream>
-#include <climits> 
-#include <string> 
-#include <vector> 
-#include <sstream> 
+#include <climits>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <cctype>
 
 using namespace std;
 
-int menuOption, menuAux;
+int menuOption, menuAux, confirmOption;
 string input;
-//char characters[];
 
-void optionFail();
+vector<vector<string>> table;
+vector<string> row;
+string line, word;
+
 void SymbolToASCII();
 
-int main()
-{
-    do {
-        //system("clear");
+void optionFail();
+void fileCheck();
+void rewriteFile();
 
+int main() {
+    fileCheck();
+    do
+    {
         cout << "\n ASCII Table Lookup" << endl << endl;
         cout << "1. Symbol to ASCII" << endl;
         cout << "2. ASCII to Symbol" << endl;
@@ -29,8 +35,9 @@ int main()
         cin >> menuOption;
         cin.ignore(INT_MAX, '\n');
 
-        switch (menuOption) {
-
+        system("cls");
+        switch (menuOption)
+        {
         case 1:
         {
             system("cls");
@@ -39,45 +46,58 @@ int main()
             getline(cin, input);
             optionFail();
             SymbolToASCII();
+
+            menuOption = 0;
             break;
         }
 
         case 2:
         {
+            
+            menuOption = 0;
             break;
         }
 
         case 3:
         {
+            
+            menuOption = 0;
             break;
         }
 
         case 4:
         {
-            cout << "Do you want to close the program? - y/n" << endl;
-            cin >> menuAux;
-            if (menuAux == 'y' || menuAux == 'Y')
+            /*cout << "Do you want to close the program?" << endl;
+            cout << "Yes: Y" << endl;
+            cout << "No: N" << endl;
+            cin >> confirmOption;
+            if (confirmOption == 'y' || confirmOption == 'Y')
             {
-                //reescribirArchivo();
+                rewriteFile();
                 break;
             }
-            else
+            else if (confirmOption == 'n' || confirmOption == 'N')
             {
                 menuOption = 0;
-                system("clear");
+                system("cls");
                 break;
             }
+            else if (confirmOption != 'n' || confirmOption != 'N')
+            {
+                menuOption = 0;
+                cout << "This option is not available" << endl;
+                system("pause");
+                break;
+            }*/
             break;
+        }
 
         default:
         {
-            cout << "Option is not available" << endl;
+            cout << "This option is not available" << endl;
             system("pause");
             break;
         }
-
-        }
-
         }
 
     } while (menuOption != 4);
@@ -101,6 +121,48 @@ void SymbolToASCII() {
     }
 }
 
+void fileCheck()
+{
+    fstream Database("Database.txt", ios::in);
+    if (Database.is_open())
+    {
+        while (getline(Database, line))
+        {
+            row.clear();
+
+            stringstream str(line);
+
+            while (getline(str, word, ','))
+                row.push_back(word);
+            table.push_back(row);
+        }
+    }
+    else
+    {
+        Database.open("Database.txt", ios::out);
+
+        Database << "Code,\n";
+        Database << "Symbol,\n";
+        Database << "Description,\n";
+
+        Database.close();
+        fstream Database("Database.txt", ios::in);
+
+        while (getline(Database, line))
+        {
+            row.clear();
+
+            stringstream str(line);
+
+            while (getline(str, word, ','))
+                row.push_back(word);
+            table.push_back(row);
+        }
+    }
+
+    Database.close();
+}
+
 void optionFail() {
     if (cin.fail()) {
         cin.clear();
@@ -108,4 +170,30 @@ void optionFail() {
         cout << "Invalid option" << endl;
         getchar();
     }
+}
+
+void rewriteFile()
+{
+    ofstream Database;
+
+    Database.open("Database.txt", ios::out);
+
+    for (int i = 0, j = 0; i < table.size(); i++)
+    {
+        for (; j < table[0].size(); j++)
+        {
+            if (j == table[0].size() - 1)
+            {
+                Database << table[i][j] << "," << endl;
+                break;
+            }
+            else
+            {
+                Database << table[i][j] << ",";
+            }
+        }
+        j = 0;
+    }
+
+    Database.close();
 }
