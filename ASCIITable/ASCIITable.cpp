@@ -9,25 +9,36 @@
 using namespace std;
 
 int menuOption, menuAux;
+string input;
+//char characters[];
+
+void optionFail();
+void SymbolToASCII();
 
 int main()
 {
     do {
-        system("clear");
+        //system("clear");
 
-        cout << "ASCII Table Lookup" << endl << endl;
-
+        cout << "\n ASCII Table Lookup" << endl << endl;
         cout << "1. Symbol to ASCII" << endl;
         cout << "2. ASCII to Symbol" << endl;
         cout << "3. ASCII Table list" << endl;
         cout << "4. Exit program" << endl << endl;
         cout << "Choose an option: ";
         cin >> menuOption;
+        cin.ignore(INT_MAX, '\n');
 
         switch (menuOption) {
 
         case 1:
         {
+            system("cls");
+            cout << "Symbol to ASCII" << endl;
+            cout << "Enter a character: ";
+            getline(cin, input);
+            optionFail();
+            SymbolToASCII();
             break;
         }
 
@@ -57,6 +68,14 @@ int main()
                 break;
             }
             break;
+
+        default:
+        {
+            cout << "Option is not available" << endl;
+            system("pause");
+            break;
+        }
+
         }
 
         }
@@ -64,4 +83,29 @@ int main()
     } while (menuOption != 4);
 
     return 0;
+}
+
+
+void SymbolToASCII() {
+    /*char characters[input.length()];
+
+    for (int i = 0; i < input.length(); ++i) {
+        characters[i] = input[i];
+    }*/
+
+    vector<char> characters(input.begin(), input.end());
+
+    cout << "\nASCII Values:" << std::endl;
+    for (int i = 0; i < input.length(); ++i) {
+        std::cout << "ASCII of Character " << characters[i] << ": " << static_cast<int>(characters[i]) << std::endl;
+    }
+}
+
+void optionFail() {
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cout << "Invalid option" << endl;
+        getchar();
+    }
 }
