@@ -9,16 +9,19 @@
 
 using namespace std;
 
-int menuOption, menuAux, confirmOption;
-string input;
+int menuOption, menuAux, confirmOption, showLimit;
+string input, printSpaces;
 
 vector<vector<string>> table;
 vector<string> row;
 string line, word;
 
 void SymbolToASCII();
+void showTable();
 
 void optionFail();
+void sortSpaces(int category, int number);
+
 void fileCheck();
 void rewriteFile();
 
@@ -60,36 +63,16 @@ int main() {
 
         case 3:
         {
-            
+            showTable();
             menuOption = 0;
             break;
         }
 
         case 4:
         {
-            /*cout << "Do you want to close the program?" << endl;
-            cout << "Yes: Y" << endl;
-            cout << "No: N" << endl;
-            cin >> confirmOption;
-            if (confirmOption == 'y' || confirmOption == 'Y')
-            {
-                rewriteFile();
-                break;
-            }
-            else if (confirmOption == 'n' || confirmOption == 'N')
-            {
-                menuOption = 0;
-                system("cls");
-                break;
-            }
-            else if (confirmOption != 'n' || confirmOption != 'N')
-            {
-                menuOption = 0;
-                cout << "This option is not available" << endl;
-                system("pause");
-                break;
-            }*/
-            break;
+             rewriteFile();
+             break;
+           
         }
 
         default:
@@ -163,15 +146,6 @@ void fileCheck()
     Database.close();
 }
 
-void optionFail() {
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-        cout << "Invalid option" << endl;
-        getchar();
-    }
-}
-
 void rewriteFile()
 {
     ofstream Database;
@@ -196,4 +170,23 @@ void rewriteFile()
     }
 
     Database.close();
+}
+
+
+void optionFail() {
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cout << "Invalid option" << endl;
+        getchar();
+    }
+}
+
+void showTable(){
+    for (int j = 0; j < row.size(); j++) {
+        cout << table[0][j] << "    ";
+        cout << table[1][j] << " ";
+        cout << endl;
+    }
+    cout << endl;
 }
