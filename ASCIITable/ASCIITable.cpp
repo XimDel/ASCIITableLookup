@@ -16,7 +16,8 @@ vector<vector<string>> table;
 vector<string> row;
 string line, word;
 
-void SymbolToASCII();
+void symbolToASCII();
+void findASCII();
 void ASCIIToSymbol();
 void showTable();
 
@@ -48,7 +49,7 @@ int main() {
             cout << "Enter a character: ";
             getline(cin, input);
             optionFail();
-            SymbolToASCII();
+            symbolToASCII();
             menuOption = 0;
             break;
         }
@@ -59,12 +60,13 @@ int main() {
             cout << "ASCII to symbol" << endl;
             cout << "Enter an ASCII number: ";
             cin >> AsciiNumber;
-            ASCIIToSymbol();
+            findASCII();
 
             if (AsciiFound == 1)
             {
-                //mostrarInfoAuto();
-                cout << "show asci symbol found" << endl;
+                cout << "\n" << endl;
+                cout << "ASCII code found:" << endl;
+                ASCIIToSymbol();
             }
             else if (AsciiFound == 0)
             {
@@ -104,7 +106,7 @@ int main() {
     return 0;
 }
 
-void SymbolToASCII() {
+void symbolToASCII() {
 
     vector<char> characters(input.begin(), input.end());
 
@@ -114,7 +116,7 @@ void SymbolToASCII() {
     }
 }
 
-void ASCIIToSymbol() {
+void findASCII() {
 
     for (int i = 0, j = 0; j < table[0].size(); j++)
     {
@@ -134,6 +136,15 @@ void ASCIIToSymbol() {
     {
         AsciiFound = 0;
     }
+}
+
+void ASCIIToSymbol()
+{
+    cout << table[0][0] << "   ";
+    cout << table[1][0] << "   "<<endl;
+    cout << table[0][location] << "    ";
+    cout << table[1][location] << " "<<endl;
+    cout << endl;
 }
 
 void showTable(){
