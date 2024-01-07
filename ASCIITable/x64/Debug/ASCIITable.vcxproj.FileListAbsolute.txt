@@ -1,0 +1,2 @@
+C:\Users\ximde\Documents\VisualStudio\ASCIITable\x64\Debug\ASCIITable.exe.lastcodeanalysissucceeded
+C:\Users\ximde\Documents\VisualStudio\ASCIITable\ASCIITable\x64\Debug\NativeCodeAnalysis.read.1.tlog

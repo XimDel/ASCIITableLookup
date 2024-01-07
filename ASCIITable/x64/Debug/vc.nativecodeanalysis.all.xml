@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\ximde\Documents\VisualStudio\ASCIITable\ASCIITable\</FILEPATH>
+      <FILENAME>ASCIITable.cpp</FILENAME>
+      <LINE>221</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>optionFail</FUNCTION>
+    <DECORATED>?optionFail@@YAXXZ</DECORATED>
+    <FUNCLINE>216</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

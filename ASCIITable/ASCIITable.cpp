@@ -9,18 +9,18 @@
 
 using namespace std;
 
-int menuOption, menuAux, confirmOption, showLimit;
-string input, printSpaces;
+int menuOption, menuAux, confirmOption, showLimit, aux, AsciiFound,location;
+string input, printSpaces, AsciiNumber;
 
 vector<vector<string>> table;
 vector<string> row;
 string line, word;
 
 void SymbolToASCII();
+void ASCIIToSymbol();
 void showTable();
 
 void optionFail();
-void sortSpaces(int category, int number);
 
 void fileCheck();
 void rewriteFile();
@@ -49,14 +49,28 @@ int main() {
             getline(cin, input);
             optionFail();
             SymbolToASCII();
-
             menuOption = 0;
             break;
         }
 
         case 2:
         {
-            
+            system("cls");
+            cout << "ASCII to symbol" << endl;
+            cout << "Enter an ASCII number: ";
+            cin >> AsciiNumber;
+            ASCIIToSymbol();
+
+            if (AsciiFound == 1)
+            {
+                //mostrarInfoAuto();
+                cout << "show asci symbol found" << endl;
+            }
+            else if (AsciiFound == 0)
+            {
+                cout << "ASCII code not found, try again." << endl;
+            }
+
             menuOption = 0;
             break;
         }
@@ -70,6 +84,8 @@ int main() {
 
         case 4:
         {
+            cout << "Goodbye" << endl;
+            system("pause");
              rewriteFile();
              break;
            
@@ -88,13 +104,7 @@ int main() {
     return 0;
 }
 
-
 void SymbolToASCII() {
-    /*char characters[input.length()];
-
-    for (int i = 0; i < input.length(); ++i) {
-        characters[i] = input[i];
-    }*/
 
     vector<char> characters(input.begin(), input.end());
 
@@ -102,6 +112,37 @@ void SymbolToASCII() {
     for (int i = 0; i < input.length(); ++i) {
         std::cout << "ASCII of Character " << characters[i] << ": " << static_cast<int>(characters[i]) << std::endl;
     }
+}
+
+void ASCIIToSymbol() {
+
+    for (int i = 0, j = 0; j < table[0].size(); j++)
+    {
+        aux = 1;
+        if (AsciiNumber == table[i][j])
+        {
+            AsciiFound = 1;
+            location = j;
+            break;
+        }
+        else
+        {
+            aux = 0;
+        }
+    }
+    if (aux == 0)
+    {
+        AsciiFound = 0;
+    }
+}
+
+void showTable(){
+    for (int j = 0; j < row.size(); j++) {
+        cout << table[0][j] << "    ";
+        cout << table[1][j] << " ";
+        cout << endl;
+    }
+    cout << endl;
 }
 
 void fileCheck()
@@ -172,7 +213,6 @@ void rewriteFile()
     Database.close();
 }
 
-
 void optionFail() {
     if (cin.fail()) {
         cin.clear();
@@ -180,13 +220,4 @@ void optionFail() {
         cout << "Invalid option" << endl;
         getchar();
     }
-}
-
-void showTable(){
-    for (int j = 0; j < row.size(); j++) {
-        cout << table[0][j] << "    ";
-        cout << table[1][j] << " ";
-        cout << endl;
-    }
-    cout << endl;
 }
